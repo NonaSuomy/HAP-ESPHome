@@ -1,5 +1,4 @@
 #pragma once
-
 #include <esphome/core/defines.h>
 #ifdef USE_LOCK
 #include <esphome/core/application.h>
@@ -7,9 +6,9 @@
 #include <hap_apple_servs.h>
 #include <hap_apple_chars.h>
 #include <map>
+#include "const.h"
 #ifdef USE_HOMEKEY
 #include <nvs.h>
-#include "const.h"
 #include <HK_HomeKit.h>
 #include <hkAuthContext.h>
 #include <esphome/components/pn532/pn532.h>
@@ -20,29 +19,18 @@
 namespace esphome {
 namespace homekit {
 
-enum class AInfo {
-    NAME,
-    MODEL,
-    SN,
-    MANUFACTURER,
-    FW_REV
-};
-
-enum class HKFinish {
-    TAN = 0,
-    GOLD,
-    SILVER,
-    BLACK
-};
+// Remove these enum definitions since they're already in const.h
+// enum class AInfo {...}
+// enum class HKFinish {...}
 
 class LockEntity {
 private:
     std::map<AInfo, const char*> accessory_info = {
-        {AInfo::NAME, NULL}, 
-        {AInfo::MODEL, "HAP-LOCK"}, 
-        {AInfo::SN, NULL}, 
-        {AInfo::MANUFACTURER, "rednblkx"}, 
-        {AInfo::FW_REV, "0.1"}
+        {NAME, NULL}, 
+        {MODEL, "HAP-LOCK"}, 
+        {SN, NULL}, 
+        {MANUFACTURER, "rednblkx"}, 
+        {FW_REV, "0.1"}
     };
     
     lock::Lock* ptrToLock;
@@ -68,4 +56,5 @@ protected:
 
 } // namespace homekit
 } // namespace esphome
-#endif
+
+#endif  // USE_LOCK
