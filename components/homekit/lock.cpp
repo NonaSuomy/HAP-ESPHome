@@ -79,9 +79,9 @@ void LockEntity::setInfo(std::map<AInfo, const char*> info) {
 void LockEntity::set_hk_hw_finish(HKFinish color) {
     ESP_LOGI("homekit", "SELECTED HK FINISH: %d", static_cast<int>(color));
     hkFinishTlvData = std::make_unique<hap_tlv8_val_t>();
-    hkFinishTlvData->len = 1;
-    hkFinishTlvData->val = new uint8_t[1];
-    hkFinishTlvData->val[0] = static_cast<uint8_t>(color);
+    hkFinishTlvData->data_len = 1;  // Changed from len to data_len
+    hkFinishTlvData->data = new uint8_t[1];  // Changed from val to data
+    hkFinishTlvData->data[0] = static_cast<uint8_t>(color);
 }
 
 void LockEntity::setup() {
