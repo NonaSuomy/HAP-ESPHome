@@ -19,7 +19,7 @@ enum class AInfo {
     FW_REV
 };
 
-enum HKFinish {
+enum class HKFinish {
     TAN = 0,
     GOLD,
     SILVER,
@@ -43,9 +43,6 @@ private:
     static nvs_handle savedHKdata;
     static readerData_t readerData;
     static pn532::PN532* nfc_ctx;
-    std::vector<uint8_t> ecpData;
-    std::vector<HKAuthTrigger*> triggers_onhk_;
-    std::vector<HKFailTrigger*> triggers_onhk_fail_;
 #endif
 
 public:
@@ -58,14 +55,6 @@ protected:
     static int acc_identify(hap_acc_t* ha);
     static int lock_write(hap_write_data_t write_data[], int count, void* serv_priv, void* write_priv);
     void on_lock_update(lock::Lock* obj);
-
-#ifdef USE_HOMEKEY
-    static int nfcAccess_write(hap_write_data_t write_data[], int count, void* serv_priv, void* write_priv);
-    static void hap_event_handler(hap_event_t event, void* data);
-    void register_onhk_trigger(HKAuthTrigger* trig);
-    void register_onhkfail_trigger(HKFailTrigger* trig);
-    void set_nfc_ctx(pn532::PN532* ctx);
-#endif
 };
 
 } // namespace homekit
