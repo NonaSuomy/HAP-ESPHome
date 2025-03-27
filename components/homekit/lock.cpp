@@ -78,7 +78,10 @@ void LockEntity::setInfo(std::map<AInfo, const char*> info) {
 
 void LockEntity::set_hk_hw_finish(HKFinish color) {
     ESP_LOGI("homekit", "SELECTED HK FINISH: %d", static_cast<int>(color));
-    // Implementation for hardware finish setting
+    hkFinishTlvData = std::make_unique<hap_tlv8_val_t>();
+    hkFinishTlvData->len = 1;
+    hkFinishTlvData->val = new uint8_t[1];
+    hkFinishTlvData->val[0] = static_cast<uint8_t>(color);
 }
 
 void LockEntity::setup() {
