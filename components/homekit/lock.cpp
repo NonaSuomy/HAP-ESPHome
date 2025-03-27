@@ -93,7 +93,11 @@ void LockEntity::setup() {
                             std::to_string(ptrToLock->get_object_id_hash()).c_str()),
         .fw_rev = strdup(accessory_info[AInfo::FW_REV]),
         .hw_rev = NULL,
+#ifdef USE_HOMEKEY
         .hw_finish = hkFinishTlvData.get(),
+#else
+        .hw_finish = NULL,
+#endif
         .pv = strdup("1.1.0"),
         .cid = HAP_CID_BRIDGE,
         .identify_routine = acc_identify,
