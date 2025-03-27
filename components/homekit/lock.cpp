@@ -9,6 +9,14 @@ namespace homekit {
 readerData_t LockEntity::readerData;
 nvs_handle LockEntity::savedHKdata;
 pn532::PN532* LockEntity::nfc_ctx;
+
+void LockEntity::set_hk_hw_finish(HKFinish color) {
+    ESP_LOGI("homekit", "SELECTED HK FINISH: %d", static_cast<int>(color));
+    hkFinishTlvData = std::make_unique<hap_tlv8_val_t>();
+    hkFinishTlvData->val_len = 1;  // Using val_len
+    hkFinishTlvData->val = new uint8_t[1];  // Using val
+    hkFinishTlvData->val[0] = static_cast<uint8_t>(color);
+}
 #endif
 
 void LockEntity::on_lock_update(lock::Lock* obj) {
@@ -74,14 +82,6 @@ void LockEntity::setInfo(std::map<AInfo, const char*> info) {
     merged_info.merge(info);
     merged_info.merge(this->accessory_info);
     this->accessory_info.swap(merged_info);
-}
-
-void LockEntity::set_hk_hw_finish(HKFinish color) {
-    ESP_LOGI("homekit", "SELECTED HK FINISH: %d", static_cast<int>(color));
-    hkFinishTlvData = std::make_unique<hap_tlv8_val_t>();
-    hkFinishTlvData->val_len = 1;  // Using val_len
-    hkFinishTlvData->val = new uint8_t[1];  // Using val
-    hkFinishTlvData->val[0] = static_cast<uint8_t>(color);
 }
 
 void LockEntity::setup() {
