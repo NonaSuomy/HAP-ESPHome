@@ -1,12 +1,21 @@
 #pragma once
 
-#include "esphome/core/component.h"
-#include "esphome/components/lock/lock.h"
-#include "esp_hap_main.h"
-#include "esp_hap_core.h"
-#include "esp_hap_acc.h"
-#include "esp_hap_serv.h"
-#include "esp_hap_char.h"
+#include <esphome/core/defines.h>
+#ifdef USE_LOCK
+#include <esphome/core/application.h>
+#include <hap.h>
+#include <hap_apple_servs.h>
+#include <hap_apple_chars.h>
+#include <map>
+#ifdef USE_HOMEKEY
+#include <nvs.h>
+#include "const.h"
+#include <HK_HomeKit.h>
+#include <hkAuthContext.h>
+#include <esphome/components/pn532/pn532.h>
+#include <esphome/core/base_automation.h>
+#include "automation.h"
+#endif
 
 namespace esphome {
 namespace homekit {
