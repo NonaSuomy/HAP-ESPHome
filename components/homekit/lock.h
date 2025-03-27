@@ -19,10 +19,6 @@
 namespace esphome {
 namespace homekit {
 
-// Remove these enum definitions since they're already in const.h
-// enum class AInfo {...}
-// enum class HKFinish {...}
-
 class LockEntity {
 private:
     std::map<AInfo, const char*> accessory_info = {
@@ -34,9 +30,9 @@ private:
     };
     
     lock::Lock* ptrToLock;
-    std::unique_ptr<hap_tlv8_val_t> hkFinishTlvData;
 
 #ifdef USE_HOMEKEY
+    std::unique_ptr<hap_tlv8_val_t> hkFinishTlvData;
     static nvs_handle savedHKdata;
     static readerData_t readerData;
     static pn532::PN532* nfc_ctx;
@@ -46,7 +42,9 @@ public:
     LockEntity(lock::Lock* lockPtr);
     void setup();
     void setInfo(std::map<AInfo, const char*> info);
+#ifdef USE_HOMEKEY
     void set_hk_hw_finish(HKFinish color);
+#endif
 
 protected:
     static int acc_identify(hap_acc_t* ha);
